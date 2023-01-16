@@ -26,48 +26,59 @@ export interface IProfile {
   html_url: string
 }
 
-const BioCard = () => {
 
-  // add state 
-
-  useEffect(() => {
-   // get data of users;
-  }, [])
-
-  return (
-    <CardContainer>
-      <ProfileContainer>
-        <img src="https://avatars.githubusercontent.com/u/69405601?v=4" alt="profile author" />
-      </ProfileContainer>
-      <Content>
-        <HeaderCard>
-          <TitleCard>José Wictor</TitleCard>
-          <Link url="https://github.com/wictor-parmenis">GITHUB</Link>
-        </HeaderCard>
-        <DescriptionText>Description profile</DescriptionText>
-        <FooterCard>
-          <Info>
-            <img src={GitHubIcon} alt="" />
-            <DescriptionText>login profile</DescriptionText>
-          </Info>
-          <Info>
-            <img
-              src={BuildingIcon}
-              style={{
-                width: 20,
-              }}
-              alt=""
-            />
-            <DescriptionText>company profile</DescriptionText>
-          </Info>
-          <Info>
-            <img src={UserGroupIcon} alt="" />
-            <DescriptionText>profile  seguidores</DescriptionText>
-          </Info>
-        </FooterCard>
-      </Content>
-    </CardContainer>
-  )
+export interface IResponseBio {
+  data: IProfile
 }
+
+function BioCard(){
+
+    const [bioCard, setBioCard] = useState<IProfile>() 
+
+    useEffect(() => {
+      const getBioCard = async () => {
+        const resultBio = await api.get(endpoints.getUser()) as IResponseBio
+        setBioCard(resultBio.data as unknown as IProfile)
+      }
+  
+      getBioCard()
+    }, [])
+    return (
+      <CardContainer>
+
+        <ProfileContainer>
+          <img src="https://avatars.githubusercontent.com/u/77209236?v" alt="profile author" />
+        </ProfileContainer>
+        <Content>
+          <HeaderCard>
+            <TitleCard>{bioCard?.name}</TitleCard> 
+            <Link url="https://github.com/Godsat2910">GITHUB</Link>
+          </HeaderCard>
+          <DescriptionText>{bioCard?.bio}</DescriptionText>
+          <FooterCard>
+            <Info>
+              <img src={GitHubIcon} alt="" />
+              <DescriptionText>{bioCard?.login}</DescriptionText>
+            </Info>
+            <Info>
+              <img
+                src={BuildingIcon}
+                style={{
+                  width: 20,
+                }}
+                alt=""
+              />
+              <DescriptionText>{bioCard?.company}</DescriptionText>
+            </Info>
+            <Info>
+              <img src={UserGroupIcon} alt="" />
+              <DescriptionText>{bioCard?.followers}</DescriptionText>
+            </Info>
+          </FooterCard>
+        </Content>
+      </CardContainer>
+    )
+  }
+
 
 export default BioCard

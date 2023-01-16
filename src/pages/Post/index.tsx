@@ -9,26 +9,34 @@ import Article from './_components/Article'
 interface IPost {
   number: number
   title: string
-  htmlUrl: string
+  html_url: string
   body: string
   comments: number
-  createdAt: string
+  created_at: string
 }
 
 const Post: React.FC = () => {
-  const { numberPost } = useParams()
+  const { numberPost } = useParams() 
   const [post, setPost] = useState<IPost>()
 
   useEffect(() => {
     const getPost = async () => {
-      // get posts here
+      const resultNumberPost = await api.get(endpoints.getPost(`${numberPost}`))
+
+      
+      const {data} = resultNumberPost;
+      console.log(data, 'data');
+      setPost(data)      
     }
     getPost()
   }, [numberPost])
 
-  const timePosting = post?.createdAt ? getTimePosting(post?.createdAt) : ''
-  const numberComments = '0 comentários' // number of comments here
+  const timePosting = post?.created_at ? getTimePosting(post?.created_at) : ''
+  const numberComments = `${post?.comments} comentá${
+    post?.comments && post.comments > 1 ? 'rios' : 'rio'
+  }` //'0 comentários' // number of comments here
 
+  console.log('url ->', post)
   return (
     <PostContainer>
       {!post && <></>}
@@ -36,7 +44,7 @@ const Post: React.FC = () => {
         <>
           <PostTitleCard
             comments={numberComments}
-            htmlUrl={post.htmlUrl}
+            htmlUrl={post.html_url}
             timePosting={timePosting}
             title={post.title}
           />

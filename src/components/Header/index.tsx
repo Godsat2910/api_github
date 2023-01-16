@@ -5,12 +5,15 @@ import LeftCover from '../../assets/left-cover.svg'
 import RigthCover from '../../assets/rigth-cover.svg'
 import { useNavigate } from 'react-router-dom'
 
+
+
 const Header: React.FC = () => {
   const navigate = useNavigate()
 
   function redirectToHome() {
-    // redirect home
-  }
+    navigate('/')
+  };
+
   return (
     <HeaderContainer>
       <CoverContent>

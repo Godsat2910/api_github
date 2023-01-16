@@ -2,7 +2,7 @@ const { VITE_REACT_APP_USERNAME, VITE_REACT_APP_REPO_BLOG } = import.meta.env
 
 export const endpoints = {
   getPostsByQuery: (query: string) =>
-    `/search/issues?q=${query}repo:wictor-parmenis/${VITE_REACT_APP_REPO_BLOG}`,
+    `/search/issues?q=${query}repo:Godsat2910/${VITE_REACT_APP_REPO_BLOG}`,
   getPosts: () =>
     `/repos/${VITE_REACT_APP_USERNAME}/${VITE_REACT_APP_REPO_BLOG}/issues`,
   getPost: (number: string) =>

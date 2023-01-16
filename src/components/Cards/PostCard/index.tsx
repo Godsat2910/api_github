@@ -16,9 +16,10 @@ interface IPostCardProps {
 const PostCard: React.FC<IPostCardProps> = ({
   postCard: { body, title, postingTime, number },
 }) => {
+  const navigate = useNavigate()
 
   const handleRedirectCard = () => {
-    // redirect to correct page: /post/${numberPost}
+    navigate(`/post/${number}`)
   }
  
 
